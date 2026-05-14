@@ -1,0 +1,38 @@
+name: Playwright Automation Testing
+
+on: 
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    test-execution:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              
+            - name: Build Docker Image
+              run: docker build -t aetesting-playwright-project .
+            
+            - name: Run auto tests
+              run: docker run --name test-container aetesting-playwright-project || true
+            - name: Extract test reports
+              run: docker cp test-container:/app/reports/ ./tests-results/
+            
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: execution-report
+                path: ./tests-results/
+                retention-days: 30
+
+            - name: Deploy Report to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }} 
+                publish_dir: ./tests-results/
+                publish_branch: gh-pages

@@ -47,3 +47,7 @@ build/
 
 # User-specific ignored files
 src/main/resources/config.properties
+
+reports/
+screenshots/
+src/main/resources/testdata/~$*

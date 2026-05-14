@@ -1,0 +1,8 @@
+BASE_URL=https://automationexercise.com/
+API_URL=https://automationexercise.com/api
+
+BROWSER=chrome
+Viewport_Width=1920
+Viewport_Height=1080
+
+UI_Headless=True 

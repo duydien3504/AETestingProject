@@ -3,6 +3,7 @@ package core;
 import com.microsoft.playwright.*;
 import config.ConfigReader;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -73,8 +74,15 @@ public class PlaywrightFactory {
     }
 
     public static String takeScreenShot() {
+        String folderPath = "screenshots";
+        File directory = new File(folderPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        Path path = Paths.get(folderPath, System.currentTimeMillis() + ".png");
         byte[] buffer = getPage().screenshot(new Page.ScreenshotOptions()
-                .setPath(Paths.get("screenshots" + System.currentTimeMillis()+".png")).setFullPage(true));
+                .setPath(path)
+                .setFullPage(true));
         return Base64.getEncoder().encodeToString(buffer);
     }
 }

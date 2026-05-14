@@ -16,16 +16,20 @@ public class ConfigReader {
             properties.load(ip);
         } catch (IOException e) {
             System.out.println("Khong tim thay file cau hinh");
-            e.printStackTrace();
         }
         return properties;
     }
 
     public static String getProperty(String key) {
-        if(properties == null) {
+        String value = System.getenv(key);
+        if (value != null && !value.isEmpty()) {
+            return value;
+        }
+
+        if (properties == null) {
             initProp();
         }
-        return properties.getProperty(key);
+        return properties != null ? properties.getProperty(key) : null;
     }
 
     public static String getBrowser() {
