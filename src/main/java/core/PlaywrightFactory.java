@@ -54,13 +54,16 @@ public class PlaywrightFactory {
                 break;
         }
 
-        tlbBrowserContext.set(getBrowser().newContext(new Browser.NewContextOptions().setViewportSize(null)));
+        tlbBrowserContext.set(getBrowser().newContext(new Browser.NewContextOptions()
+                .setViewportSize(null)
+                .setRecordVideoDir(Paths.get("videos/"))
+                .setRecordVideoSize(1920, 720)));
         tlPage.set(getBrowserContext().newPage());
         return getPage();
     }
 
     public void quitBrowser() {
-        if(tlPage.get() != null) {
+        if (tlPage.get() != null) {
             tlPage.get().close();
             tlbBrowserContext.get().close();
             tlBrowser.get().close();
