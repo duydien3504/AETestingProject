@@ -16,7 +16,8 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest test = extent.createTest(result.getTestClass().getName() + " - " + result.getMethod().getMethodName());
+        ExtentTest test = extent
+                .createTest(result.getTestClass().getName() + " - " + result.getMethod().getMethodName());
 
         ExtentTestManager.set(test);
     }
@@ -28,16 +29,20 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        ExtentTestManager.get().log(Status.FAIL, "Test Failed: " + result.getThrowable().getMessage());
+        if (ExtentTestManager.get() != null) {
+            ExtentTestManager.get().log(Status.FAIL, "Test Failed: " + result.getThrowable().getMessage());
 
-        if (PlaywrightFactory.getPage() != null) {
-            try {
-                String base64Screenshot = PlaywrightFactory.takeScreenShot();
-                ExtentTestManager.get().fail("Screenshot Error:",
-                        MediaEntityBuilder.createScreenCaptureFromBase64String(base64Screenshot).build());
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (PlaywrightFactory.getPage() != null) {
+                try {
+                    String base64Screenshot = PlaywrightFactory.takeScreenShot();
+                    ExtentTestManager.get().fail("Screenshot Error:",
+                            MediaEntityBuilder.createScreenCaptureFromBase64String(base64Screenshot).build());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            System.err.println("Test failed before ExtentTest was initialized: " + result.getThrowable().getMessage());
         }
     }
 
@@ -49,6 +54,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         extent.flush();
-        ExtentTestManager.clear(); 
+        ExtentTestManager.clear();
     }
 }
