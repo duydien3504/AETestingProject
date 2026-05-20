@@ -17,6 +17,15 @@ public class BaseUITest {
     public void setupUI() {
         pf = new PlaywrightFactory();
         page = pf.initBrowser();
+        page.route("**/*googlesyndication*", route -> route.abort());
+        page.route("**/*googleadservices*", route -> route.abort());
+        page.route("**/*googleads*", route -> route.abort());
+        page.route("**/*doubleclick*", route -> route.abort());
+        page.route("**/*adnxs*", route -> route.abort());
+        page.route("**/*adsystem*", route -> route.abort());
+        page.route("**/*adsbygoogle*", route -> route.abort());
+        page.route("**/*adservice*", route -> route.abort());
+        page.route("**/*aswift*", route -> route.abort());
         page.navigate(ConfigReader.getBaseUrl(),
                 new Page.NavigateOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED));
     }

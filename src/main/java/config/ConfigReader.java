@@ -43,4 +43,12 @@ public class ConfigReader {
     public static String getHeadLess() {
         return getProperty("UI_Headless");
     }
+
+    public static String getEmail() {
+        return getProperty("email");
+    }
+
+    public static String getPassword() {
+        return getProperty("password");
+    }
 }

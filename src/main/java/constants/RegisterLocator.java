@@ -1,14 +1,12 @@
 package constants;
 
 public class RegisterLocator {
-    //Signup Step 1
     public static final String signUpBtn = "//a[contains(text(), 'Signup / Login')]";
     public static final String nameInput = "//input[@name='name']";
     public static final String emailInput = "//input[@name='email' and @data-qa='signup-email']";
     public static final String signupBtn = "//button[@type='submit' and @data-qa='signup-button']";
 
-    //Signup Step 2
-    public static final String genderRBtn = "//label[@for='id_gender1']";
+    public static final String genderRBtn = "//input[@id='id_gender1']";
     public static final String passwordInput = "//input[@id='password']";
 
     public static final String daySelect = "//select[@id='days']";
@@ -28,7 +26,7 @@ public class RegisterLocator {
     public static final String phoneInput = "//input[@id= 'mobile_number']";
     public static final String creatAcc = "//button[@type='submit' and @data-qa='create-account']";
 
-    //Check
+    // Check
     public static final String titleSuccess = "//b[contains(text(), 'Account Created!')]";
     public static final String messageSuccess = "//p[contains(text(), 'Congratulations! Your new account has been successfully created!')]";
     public static final String nameRequireMessage = "Name is required";
@@ -42,4 +40,5 @@ public class RegisterLocator {
     public static final String zipcodeIvl = "Invalid Zipcode";
     public static final String firstNameEmpty = "First name is required";
     public static final String passwordShortMessage = "Password too short";
+    public static final String continueBtn = "//a[@data-qa='continue-button']";
 }

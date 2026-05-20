@@ -30,6 +30,7 @@ public class RegisterPage extends BasePage {
 
     public void clickSignup() {
         clickElement(signupBtn);
+        page.waitForLoadState(com.microsoft.playwright.options.LoadState.DOMCONTENTLOADED);
     }
 
     public void checkGender() {
@@ -183,5 +184,10 @@ public class RegisterPage extends BasePage {
             return true;
         }
         return false;
+    }
+
+    public void clickContinue() {
+        clickElement(continueBtn);
+        page.waitForLoadState(com.microsoft.playwright.options.LoadState.DOMCONTENTLOADED);
     }
 }
